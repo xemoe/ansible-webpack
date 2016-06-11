@@ -1,0 +1,18 @@
+---
+- name: webpack | Update apt-get cache
+  apt: 
+    update_cache: yes
+
+- name: webpack | Set MySQL root password before install
+  debconf:
+    name: mysql-server
+    question: "{{ item }}"
+    value: "{{ webpack_mysql_root_pass | quote }}"
+    vtype: password
+  with_items: "{{ webpack_mysql_questions }}"
+
+- name: webpack | Install base packages
+  apt: 
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ webpack_base_packages }}"

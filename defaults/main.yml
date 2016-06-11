@@ -1,0 +1,28 @@
+---
+webpack_php_version: 5.6
+webpack_base_packages:
+  - "php{{ webpack_php_version }}-cli"
+  - "php{{ webpack_php_version }}-cgi"
+  - "php{{ webpack_php_version }}-curl"
+  - "php{{ webpack_php_version }}-common"
+  - "php{{ webpack_php_version }}-mysql"
+  - "php{{ webpack_php_version }}-mcrypt"
+  - "mysql-server"
+
+webpack_php_composer_url: https://getcomposer.org/installer
+webpack_php_composer_install: /usr/local/bin
+webpack_php_codecept_url: http://codeception.com/codecept.phar
+webpack_php_codecept_install: /usr/local/bin
+
+webpack_mysql_root_user: root
+webpack_mysql_root_pass: mysqlpass123
+webpack_mysql_questions:
+  - mysql-server/root_password
+  - mysql-server/root_password_again
+
+webpack_databases:
+  - db_name: mydb
+    db_user: mydbuser
+    db_pass: mysqlpass123
+    db_host: localhost 
+

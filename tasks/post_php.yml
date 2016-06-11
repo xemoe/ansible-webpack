@@ -1,0 +1,12 @@
+---
+- name: webpack - post_php | Install PHP Composer
+  shell: "curl -sS {{ webpack_php_composer_url }} | php -- --install-dir={{ webpack_php_composer_install }} --filename=composer"
+  args:
+    creates: "{{ webpack_php_composer_install }}/composer"
+
+- name: webpack - post_php | Install PHP Codeception
+  get_url:
+    url: "{{ webpack_php_codecept_url }}"
+    dest: "{{ webpack_php_codecept_install }}/codecept"
+    mode: 0755
+
