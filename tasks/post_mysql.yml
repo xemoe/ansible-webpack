@@ -1,18 +1,18 @@
 ---
 - name: webpack - post_mysql | Create databases
   mysql_db:
-    name: "{{ item.value.db_name }}"
+    name: "{{ item.db_name }}"
     state: present
     login_user: "{{ webpack_mysql_root_user }}"
     login_password: "{{ webpack_mysql_root_pass }}"
-  with_dict: "{{ webpack_databases }}"
+  with_items: "{{ webpack_databases }}"
 
 - name: webpack | Create per database user_name
   mysql_user:
-    name: "{{ item.value.db_user }}"
-    password: "{{ item.value.db_password }}"
-    priv: "{{ item.value.db_name }}.*:ALL"
+    name: "{{ item.db_user }}"
+    password: "{{ item.db_pass }}"
+    priv: "{{ item.db_name }}.*:ALL"
     state: present
     login_user: "{{ webpack_mysql_root_user }}"
     login_password: "{{ webpack_mysql_root_pass }}"
-  with_dict: "{{ webpack_databases }}"
+  with_items: "{{ webpack_databases }}"

@@ -1,12 +1,24 @@
 ---
+- name: webpack - post_php | Checking PHP Composer is installed
+  stat:
+    path: "{{ webpack_php_composer_install }}/composer"
+  register: check_composer
+
+- name: webpack - post_php | Checking PHP Codeception is installed
+  stat:
+    path: "{{ webpack_php_codecept_install }}/codecept"
+  register: check_codecept
+
 - name: webpack - post_php | Install PHP Composer
   shell: "curl -sS {{ webpack_php_composer_url }} | php -- --install-dir={{ webpack_php_composer_install }} --filename=composer"
   args:
     creates: "{{ webpack_php_composer_install }}/composer"
+  when: not check_composer.stat.exists
 
 - name: webpack - post_php | Install PHP Codeception
   get_url:
     url: "{{ webpack_php_codecept_url }}"
     dest: "{{ webpack_php_codecept_install }}/codecept"
     mode: 0755
+  when: not check_codecept.stat.exists
 

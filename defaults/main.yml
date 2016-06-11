@@ -1,5 +1,5 @@
 ---
-webpack_php_version: 5.6
+webpack_php_version: ""
 webpack_base_packages:
   - "php{{ webpack_php_version }}-cli"
   - "php{{ webpack_php_version }}-cgi"
@@ -8,6 +8,7 @@ webpack_base_packages:
   - "php{{ webpack_php_version }}-mysql"
   - "php{{ webpack_php_version }}-mcrypt"
   - "mysql-server"
+  - "python-mysqldb"
 
 webpack_php_composer_url: https://getcomposer.org/installer
 webpack_php_composer_install: /usr/local/bin
