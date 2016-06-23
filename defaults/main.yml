@@ -1,14 +1,26 @@
 ---
-webpack_php_version: ""
+webpack_php5_version: "5.6"
+webpack_php7_version: "7.0"
+
 webpack_base_packages:
-  - "php{{ webpack_php_version }}-cli"
-  - "php{{ webpack_php_version }}-cgi"
-  - "php{{ webpack_php_version }}-curl"
-  - "php{{ webpack_php_version }}-common"
-  - "php{{ webpack_php_version }}-mysql"
-  - "php{{ webpack_php_version }}-mcrypt"
   - "mysql-server"
   - "python-mysqldb"
+
+webpack_php5_packages:
+  - "php{{ webpack_php5_version }}-cli"
+  - "php{{ webpack_php5_version }}-cgi"
+  - "php{{ webpack_php5_version }}-curl"
+  - "php{{ webpack_php5_version }}-common"
+  - "php{{ webpack_php5_version }}-mysql"
+  - "php{{ webpack_php5_version }}-mcrypt"
+
+webpack_php7_packages:
+  - "php{{ webpack_php7_version }}-cli"
+  - "php{{ webpack_php7_version }}-cgi"
+  - "php{{ webpack_php7_version }}-curl"
+  - "php{{ webpack_php7_version }}-common"
+  - "php{{ webpack_php7_version }}-mysql"
+  - "php{{ webpack_php7_version }}-mcrypt"
 
 webpack_php_composer_url: https://getcomposer.org/installer
 webpack_php_composer_install: /usr/local/bin

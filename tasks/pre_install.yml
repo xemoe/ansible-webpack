@@ -16,3 +16,17 @@
     pkg: "{{ item }}"
     state: present
   with_items: "{{ webpack_base_packages }}"
+
+- name: webpack | Install php 5 on ubuntu != xenial
+  apt: 
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ webpack_php5_packages }}"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
+
+- name: webpack | Install php 7 on ubuntu 16.04
+  apt: 
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ webpack_php7_packages }}"
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
