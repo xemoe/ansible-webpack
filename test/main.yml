@@ -1,0 +1,7 @@
+---
+- name: testing::webpack
+  hosts: mainbox
+  become: yes
+  roles:
+    - role: xemoe.webpack
+
