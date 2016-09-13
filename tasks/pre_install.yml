@@ -11,22 +11,53 @@
     vtype: password
   with_items: "{{ webpack_mysql_questions }}"
 
+- name: webpack | Add Mariadb apt key
+  apt_key: 
+    keyserver: "{{ webpack_mariadb_apt.keyserver }}"
+    id: "{{ webpack_mariadb_apt.id }}" 
+    state: present
+  when: webpack_use_mariadb == true and webpack_mariadb_apt is defined
+
+- name: webpack | Add Mariadb apt repository
+  apt_repository: 
+    repo: "{{ webpack_mariadb_repository }} {{ ansible_distribution_release }} main"
+    filename: 'mariadb-server'
+    state: present 
+  when: webpack_use_mariadb == true and webpack_mariadb_repository is defined
+
+- name: webpack | Remove mysql-server on use mariadb
+  apt:
+    pkg: mysql-server
+    state: absent
+    purge: yes
+    autoremove: yes
+  when: webpack_use_mariadb == true and webpack_mariadb_repository is defined
+
 - name: webpack | Install base packages
   apt: 
     pkg: "{{ item }}"
     state: present
+    allow_unauthenticated: yes
+    force: yes
   with_items: "{{ webpack_base_packages }}"
+
+- name: webpack | Add Ondrej php ppa
+  apt_repository: 
+    repo: "ppa:ondrej/php"
+    state: present 
+  when: webpack_use_php7 == true
 
 - name: webpack | Install php 5 on ubuntu != xenial
   apt: 
     pkg: "{{ item }}"
     state: present
   with_items: "{{ webpack_php5_packages }}"
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial' and webpack_use_php7 != true
 
 - name: webpack | Install php 7 on ubuntu 16.04
   apt: 
     pkg: "{{ item }}"
     state: present
   with_items: "{{ webpack_php7_packages }}"
-  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'xenial' or webpack_use_php7 == true
+

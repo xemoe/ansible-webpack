@@ -2,6 +2,20 @@
 - name: testing::webpack
   hosts: mainbox
   become: yes
+  vars:
+
+    webpack_php7_version: "7.1"
+    webpack_use_php7: true
+    webpack_use_mariadb: true
+    webpack_mariadb_repository: "deb [arch=amd64,i386,ppc64el] http://mirrors.bestthaihost.com/mariadb/repo/10.1/ubuntu"
+    webpack_mariadb_apt:
+      id: "0xcbcb082a1bb943db"
+      keyserver: "hkp://keyserver.ubuntu.com:80"
+
+    webpack_base_packages:
+      - "mariadb-server-10.1"
+      - "python-mysqldb"
+
   roles:
     - role: xemoe.webpack
 

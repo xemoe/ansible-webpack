@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe "System spec" do
     describe "Required packages should be installed" do
-        describe package('php7.0-cli') do
+        describe package('php7.1-cli') do
             it { should be_installed }
         end
-        describe package('mysql-server') do
+        describe package('mariadb-server-10.1') do
             it { should be_installed }
         end
         describe file('/usr/local/bin/composer') do
